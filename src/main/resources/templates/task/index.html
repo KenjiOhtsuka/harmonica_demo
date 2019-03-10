@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Sample Application</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootst
+rap/4.1.3/css/bootstrap.min.css"
+          crossorigin="anonymous">
+</head>
+<body>
+<header class="pos-f-t mb-2">
+    <nav class="navbar navbar-light bg-light">
+        <a th:href="@{/task}" class="navbar-brand">
+            Task List
+        </a>
+    </nav>
+</header>
+<main class="container">
+    <div class="row" th:if="${success}">
+        <div class="col">
+            <div class="alert alert-success"
+                 role="alert"
+                 th:text="${success}"></div>
+        </div>
+    </div>
+    <div class="row" th:each="task : ${taskList}">
+        <div class="col">
+            <div class="d-flex">
+                <div class="p-2 w-100 align-self-center"
+                     th:text="${task.name}">
+                </div>
+                <div class="p-2 flex-shrink-1 align-self-center">
+                    <form th:object="${task}"
+                          th:action="@{/task/{id}(id=${task.id})}"
+                          th:method="delete">
+                        <button class="btn btn-outline-danger btn-sm"
+                                type="submit">
+                            X
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <form th:method="post"
+                  th:action="@{/task}"
+                  th:object="${newTask}">
+                <div class="form-group">
+                    <input type="text"
+                           name="name"
+                           class="form-control"
+                           th:field="*{name}">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block"
+                            type="submit">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>
