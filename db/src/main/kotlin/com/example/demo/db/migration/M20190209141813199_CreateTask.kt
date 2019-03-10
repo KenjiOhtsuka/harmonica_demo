@@ -10,6 +10,7 @@ class M20190209141813199_CreateTask : AbstractMigration() {
         createTable("task") {
             varchar("name", size = 200, nullable = false)
             dateTime("created_at", nullable = false)
+            dateTime("updated_at", nullable = false)
         }
     }
 
